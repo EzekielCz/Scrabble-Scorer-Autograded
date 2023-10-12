@@ -32,26 +32,105 @@ function oldScrabbleScorer(word) {
 // your job is to finish writing these functions and variables that we've named //
 // don't change the names or your program won't work as expected. //
 
-function initialPrompt() {
-   console.log("Let's play some scrabble! Enter a word:");
+function initialPrompt(userWord) {
+   console.log("Let's play some scrabble! Enter a word: ");
+  userWord = input.question("Please enter a word: ");
+  // score = oldScrabbleScorer(userWord);
+  // console.log(score);
+  return userWord;
 };
+//initialPrompt();
 
-let simpleScorer;
 
-let vowelBonusScorer;
+function simpleScorer(word){
+  console.log(word.length);
+  return word.length
+};
+//simpleScorer("rum");
+
+
+function vowelBonusScorer(word){
+  let vowels = ["a","e","i","o","u"];
+  let score = 0;
+  //let consants =[]
+  for(i = 0; i < word.length; i++){
+    if (vowels.includes(word[i].toLowerCase())){
+      score += 3;
+    } else {
+      score ++; 
+  }
+  }
+  console.log(score);
+  return score;
+};
+//vowelBonusScorer("RUM");
 
 let scrabbleScorer;
 
-const scoringAlgorithms = [];
+//console.log(typeof(oldScrabbleScorer));
 
-function scorerPrompt() {}
+const scoringAlgorithms = [{
+  function: simpleScorer,
+  name: "simpleScore",
+  description:"Each letter is worth 1 point.",
+  scoringFunction: "A function with a parameter for user input that returns a score."
+}, {
+  function: vowelBonusScorer,
+  name: "vowelBonusScore",
+  description: "Vowels are 3 pts, consonants are 1 pt.",
+  scoringFunction: "A function that returns a score based on the number of vowels and consonants."},
+  { 
+    function: oldScrabbleScorer,
+    name:"oldScrabbleScorer",
+    description:"The traditional scoring algorithm.",
+    scoringFunction: "Uses the oldScrabbleScorer() function to determine the score for a given word."
+  }
+  ];
 
-function transform() {};
+  /*function scorerPrompt(word) {
+    console.log();
+    for (let i = 0; i < scoringAlgorithms.length; i++) {
+      console.log(`${i + 1}. ${scoringAlgorithms[i].name} -> ${scoringAlgorithms[i].description}`);
+    }
+    userInput = Number(input.question("Please enter the number to select a scoring guide : ")) - 1;
+    console.log("You chose : " + scoringAlgorithms[userInput].name + "\n");
+    return scoringAlgorithms[userInput].function(word);
+  }
+  
+  function runProgram() {
+    word = initialPrompt();
+    console.log("Your score is : " + scorerPrompt(word));
+  }*/
+  
+function scorerPrompt(word) {
+  userInput = Number(input.question(" Please pick a scoring guide by picking either 0, 1 or 2: "));
+    console.log(" You choose " + scoringAlgorithms[userInput].name)
+  console.log(scoringAlgorithms[userInput].function(word));
+     
+}
+//scorerPrompt("rum");
+
+function transform(objectArray) {
+let revisedPointStructure = {}; //creating revised point structure using old point structure. the keys are supposed to be the letters, the values are supposed to be numbers.
+  for (numbers in objectArray){
+    for(i=0; i < objectArray[numbers].length; i++){
+      revisedPointStructure[objectArray[numbers][i]] = Number(numbers);
+}
+  }
+return revisedPointStructure;
+};
+
+//oldPointStructure[1][0]    
+// revisedPointStructure[oldPointStructure[1][0]] = 1;
 
 let newPointStructure;
 
 function runProgram() {
-   initialPrompt();
+   
+   scorerPrompt(initialPrompt());
+   /*word = initialPrompt();
+   console.log(scorerPrompt(word));*/
+
    
 }
 
