@@ -65,25 +65,35 @@ function vowelBonusScorer(word){
 };
 //vowelBonusScorer("RUM");
 
-let scrabbleScorer;
+function scrabbleScorer(word) {
+  // console.log(newPointStructure);
+  let score = 0;
+  for (let i=0; i <word.length; i++ ){
+    for (keys in newPointStructure){
+      if(word[i].toLowerCase() === keys){
+        score += newPointStructure[keys]
+      }
+  //score += newPointStructure[word[i].toUpperCase()]
+    }
+  }
+return score;
+};
 
 //console.log(typeof(oldScrabbleScorer));
 
 const scoringAlgorithms = [{
-  function: simpleScorer,
+  scorerFunction: simpleScorer,
   name: "simpleScore",
   description:"Each letter is worth 1 point.",
-  scoringFunction: "A function with a parameter for user input that returns a score."
 }, {
-  function: vowelBonusScorer,
+  scorerFunction: vowelBonusScorer,
   name: "vowelBonusScore",
   description: "Vowels are 3 pts, consonants are 1 pt.",
-  scoringFunction: "A function that returns a score based on the number of vowels and consonants."},
+},
   { 
-    function: oldScrabbleScorer,
-    name:"oldScrabbleScorer",
+    scorerFunction: scrabbleScorer,
+    name:"scrabbleScorer",
     description:"The traditional scoring algorithm.",
-    scoringFunction: "Uses the oldScrabbleScorer() function to determine the score for a given word."
   }
   ];
 
@@ -102,10 +112,11 @@ const scoringAlgorithms = [{
     console.log("Your score is : " + scorerPrompt(word));
   }*/
   
-function scorerPrompt(word) {
+function scorerPrompt() {
   userInput = Number(input.question(" Please pick a scoring guide by picking either 0, 1 or 2: "));
     console.log(" You choose " + scoringAlgorithms[userInput].name)
-  console.log(scoringAlgorithms[userInput].function(word));
+  //console.log(scoringAlgorithms[userInput].function(word));
+   return scoringAlgorithms[userInput];
      
 }
 //scorerPrompt("rum");
@@ -113,8 +124,8 @@ function scorerPrompt(word) {
 function transform(objectArray) {
 let revisedPointStructure = {}; //creating revised point structure using old point structure. the keys are supposed to be the letters, the values are supposed to be numbers.
   for (numbers in objectArray){
-    for(i=0; i < objectArray[numbers].length; i++){
-      revisedPointStructure[objectArray[numbers][i]] = Number(numbers);
+    for(let i=0; i < objectArray[numbers].length; i++){
+      revisedPointStructure[objectArray[numbers][i].toLowerCase()] = Number(numbers);
 }
   }
 return revisedPointStructure;
@@ -123,12 +134,13 @@ return revisedPointStructure;
 //oldPointStructure[1][0]    
 // revisedPointStructure[oldPointStructure[1][0]] = 1;
 
-let newPointStructure;
+let newPointStructure = transform(oldPointStructure);
 
 function runProgram() {
-   
-   scorerPrompt(initialPrompt());
-   /*word = initialPrompt();
+  let totalScore = 0;
+  //  scorerPrompt(initialPrompt());
+   console.log(scorerPrompt().function(initialPrompt()));
+  /*word = initialPrompt();
    console.log(scorerPrompt(word));*/
 
    
