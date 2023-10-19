@@ -42,7 +42,7 @@ function initialPrompt(userWord) {
 
 
 function simpleScorer(word){
-  console.log(word.length);
+  // console.log(word.length);
   return word.length
 };
 //simpleScorer("rum");
@@ -59,7 +59,7 @@ function vowelBonusScorer(word){
       score ++; 
   }
   }
-  console.log(score);
+  // console.log(score);
   return score;
 };
 //vowelBonusScorer("RUM");
@@ -138,7 +138,7 @@ let newPointStructure = transform(oldPointStructure);
 function runProgram() {
   let totalScore = 0;
   //  scorerPrompt(initialPrompt());
-   console.log(scorerPrompt().function(initialPrompt()));
+   console.log(scorerPrompt().scorerFunction(initialPrompt()));
   /*word = initialPrompt();
    console.log(scorerPrompt(word));*/
 
